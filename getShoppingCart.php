@@ -12,9 +12,12 @@
 	};
 	
 	//3）、传输数据（过桥）
-	$sqlstr = "select * from goodsInfo g,shoppingCart s
-			   where g.goodsId = s.goodsId  and s.vipName = '".$vipName."'";
-	
+	$sqlstr = "select *
+				from goodsInfo g,shoppingCart s,goodstype as gt
+			   where g.goodsId = s.goodsId
+			     and gt.typeId = g.typeId   
+			     and s.vipName = '$vipName'";
+
 	$result = mysql_query($sqlstr,$conn);//执行查询的sql语句后，有返回值，返回的是查询结果
 		
 	if(!$result){
@@ -34,7 +37,7 @@
 	while($query_row){
 		$str = $str.'{"goodsId":"'.$query_row[0].'",
 		"goodsName":"'.$query_row[1].'",
-		"goodsType":"'.$query_row[2].'",
+		"goodsType":"'.$query_row[24].'",
 		"goodsPrice":"'.$query_row[3].'",
 		"goodsCount":"'.$query_row[22].'",
 		"goodsDesc":"'.$query_row[5].'",
